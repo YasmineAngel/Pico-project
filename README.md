@@ -94,8 +94,8 @@ chose which tune to play.
 How to switch between modes? When in HOME, we use the knob
 (potentiometer) and the button:
 
--   with the potentiometer, it is displayed which mode we want to
-    go to preceded by a "^" symbol.
+-   with the potentiometer, the mode we want to
+    go to is displqyed, preceded by a "^" symbol.
 -   when the user presses the button, it goes into that mode, shows it
     on the screen without the "^" symbol, and accepts commands for it.
 
