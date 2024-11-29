@@ -101,6 +101,28 @@ meantime you can send the output on the serial line with minicom.
 - For the buzzer: how to use the PWM   https://www.i-programmer.info/programming/148-hardware/14849-the-pico-in-c-basic-pwm.html
 - The Pico Grove:      https://wiki.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico/
 
+* Project requirements
+
+You need to provide
+
+- A UML statechart of the application, showing the main states and the
+  transitions events and variables; 
+
+- A report (in pdf or markdown) explaining the statechart and your
+  implementation choices:
+  - how many states and what they mean;
+  - the main events and how they are generated;
+  - the actions associated to the states or to the transitions;
+  - how many periodic FreeRTOS tasks, and what they do;
+  - how many interrupt routines and how they communicate with the rest
+    of the system
+	
+  - the problems you encountered. 
 
 
+* Deadline for the project
 
+  - You must provide the project on gitlab on *Monday 9 december*
+
+  - We we will download your projects for evaluation on *Tuesday 10
+    december* in the morning.

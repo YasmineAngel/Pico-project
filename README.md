@@ -1,17 +1,19 @@
 
 # Table of Contents
 
-1.  [Introduction](#org1c9b8bc)
-2.  [Application](#orge40d5b9)
-    1.  [Sensors](#orgdf4d2b1)
-    2.  [Requirements](#org7df90e8)
-    3.  [Serial line](#org0266e62)
-    4.  [Bug on the LCD module](#org7adb13f)
-3.  [Documentation](#org0167bb7)
+1.  [Introduction](#org9f1da7b)
+2.  [Application](#org4daee47)
+    1.  [Sensors](#orgf8d1792)
+    2.  [Requirements](#org409f1ae)
+    3.  [Serial line](#org9893bbd)
+    4.  [Bug on the LCD module](#orgab0957b)
+3.  [Documentation](#org7fe9d59)
+4.  [Project requirements](#orged88d2d)
+5.  [Deadline for the project](#org67582e7)
 
 
 
-<a id="org1c9b8bc"></a>
+<a id="org9f1da7b"></a>
 
 # Introduction
 
@@ -27,12 +29,12 @@ We will use a Raspberry Pico W, with a Grove Shield
 We will program in C/C++ and configure and compile using CMake.
 
 
-<a id="orge40d5b9"></a>
+<a id="org4daee47"></a>
 
 # Application
 
 
-<a id="orgdf4d2b1"></a>
+<a id="orgf8d1792"></a>
 
 ## Sensors
 
@@ -45,7 +47,7 @@ We will program in C/C++ and configure and compile using CMake.
 -   Temperature Sensor (on board, integrated)
 
 
-<a id="org7df90e8"></a>
+<a id="org409f1ae"></a>
 
 ## Requirements
 
@@ -102,7 +104,7 @@ How to switch between modes? When in HOME, we use the knob
 When we exit from any mode, we always go back to HOME.
 
 
-<a id="org0266e62"></a>
+<a id="org9893bbd"></a>
 
 ## Serial line
 
@@ -111,7 +113,7 @@ may want to write a simple Python script using the serial library. An
 example will be provided to you on how to use the serial line input. 
 
 
-<a id="org7adb13f"></a>
+<a id="orgab0957b"></a>
 
 ## Bug on the LCD module
 
@@ -121,7 +123,7 @@ properly. I think I will be able to solve it soon, however in the
 meantime you can send the output on the serial line with minicom.
 
 
-<a id="org0167bb7"></a>
+<a id="org7fe9d59"></a>
 
 # Documentation
 
@@ -130,4 +132,35 @@ meantime you can send the output on the serial line with minicom.
 -   FreeRTOS API:        <https://www.freertos.org/Documentation/02-Kernel/04-API-references/01-Task-creation/00-TaskHandle>
 -   For the buzzer: how to use the PWM   <https://www.i-programmer.info/programming/148-hardware/14849-the-pico-in-c-basic-pwm.html>
 -   The Pico Grove:      <https://wiki.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico/>
+
+
+<a id="orged88d2d"></a>
+
+# Project requirements
+
+You need to provide
+
+-   A UML statechart of the application, showing the main states and the
+    transitions events and variables;
+
+-   A report (in pdf or markdown) explaining the statechart and your
+    implementation choices:
+    -   how many states and what they mean;
+    -   the main events and how they are generated;
+    -   the actions associated to the states or to the transitions;
+    -   how many periodic FreeRTOS tasks, and what they do;
+    -   how many interrupt routines and how they communicate with the rest
+        of the system
+    
+    -   the problems you encountered.
+
+
+<a id="org67582e7"></a>
+
+# Deadline for the project
+
+-   You must provide the project on gitlab on **Monday 9 december**
+
+-   We we will download your projects for evaluation on **Tuesday 10
+    december** in the morning.
 
