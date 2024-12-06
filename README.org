@@ -122,7 +122,7 @@ You need to provide
 
 * Deadline for the project
 
-  - You must provide the project on gitlab on *Monday 9 december*
+  - You must provide the project on gitlab on *Monday 16 december*
 
-  - We we will download your projects for evaluation on *Tuesday 10
+  - We we will download your projects for evaluation on *Tuesday 17
     december* in the morning.

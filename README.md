@@ -1,19 +1,19 @@
 
 # Table of Contents
 
-1.  [Introduction](#org9f1da7b)
-2.  [Application](#org4daee47)
-    1.  [Sensors](#orgf8d1792)
-    2.  [Requirements](#org409f1ae)
-    3.  [Serial line](#org9893bbd)
-    4.  [Bug on the LCD module](#orgab0957b)
-3.  [Documentation](#org7fe9d59)
-4.  [Project requirements](#orged88d2d)
-5.  [Deadline for the project](#org67582e7)
+1.  [Introduction](#org60e3a51)
+2.  [Application](#org650b36f)
+    1.  [Sensors](#org58c76a0)
+    2.  [Requirements](#org77906db)
+    3.  [Serial line](#orgc81f6c9)
+    4.  [Bug on the LCD module](#org84e1e03)
+3.  [Documentation](#org8772701)
+4.  [Project requirements](#org9620fe9)
+5.  [Deadline for the project](#orgc1cddee)
 
 
 
-<a id="org9f1da7b"></a>
+<a id="org60e3a51"></a>
 
 # Introduction
 
@@ -29,12 +29,12 @@ We will use a Raspberry Pico W, with a Grove Shield
 We will program in C/C++ and configure and compile using CMake.
 
 
-<a id="org4daee47"></a>
+<a id="org650b36f"></a>
 
 # Application
 
 
-<a id="orgf8d1792"></a>
+<a id="org58c76a0"></a>
 
 ## Sensors
 
@@ -47,7 +47,7 @@ We will program in C/C++ and configure and compile using CMake.
 -   Temperature Sensor (on board, integrated)
 
 
-<a id="org409f1ae"></a>
+<a id="org77906db"></a>
 
 ## Requirements
 
@@ -96,15 +96,15 @@ chose which tune to play.
 How to switch between modes? When in HOME, we use the knob
 (potentiometer) and the button:
 
--   with the potentiometer, the mode we want to
-    go to is displayed, preceded by a "^" symbol.
+-   with the potentiometer, we show on the display which mode we want to
+    go preceded by a "^" symbol.
 -   when the user presses the button, it goes into that mode, shows it
     on the screen without the "^" symbol, and accepts commands for it.
 
 When we exit from any mode, we always go back to HOME.
 
 
-<a id="org9893bbd"></a>
+<a id="orgc81f6c9"></a>
 
 ## Serial line
 
@@ -113,7 +113,7 @@ may want to write a simple Python script using the serial library. An
 example will be provided to you on how to use the serial line input. 
 
 
-<a id="orgab0957b"></a>
+<a id="org84e1e03"></a>
 
 ## Bug on the LCD module
 
@@ -123,7 +123,7 @@ properly. I think I will be able to solve it soon, however in the
 meantime you can send the output on the serial line with minicom.
 
 
-<a id="org7fe9d59"></a>
+<a id="org8772701"></a>
 
 # Documentation
 
@@ -134,7 +134,7 @@ meantime you can send the output on the serial line with minicom.
 -   The Pico Grove:      <https://wiki.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico/>
 
 
-<a id="orged88d2d"></a>
+<a id="org9620fe9"></a>
 
 # Project requirements
 
@@ -155,12 +155,12 @@ You need to provide
     -   the problems you encountered.
 
 
-<a id="org67582e7"></a>
+<a id="orgc1cddee"></a>
 
 # Deadline for the project
 
--   You must provide the project on gitlab on **Monday 9 december**
+-   You must provide the project on gitlab on **Monday 16 december**
 
--   We we will download your projects for evaluation on **Tuesday 10
+-   We we will download your projects for evaluation on **Tuesday 17
     december** in the morning.
 
