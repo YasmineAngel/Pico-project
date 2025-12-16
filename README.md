@@ -1,166 +1,82 @@
-
-# Table of Contents
-
-1.  [Introduction](#org60e3a51)
-2.  [Application](#org650b36f)
-    1.  [Sensors](#org58c76a0)
-    2.  [Requirements](#org77906db)
-    3.  [Serial line](#orgc81f6c9)
-    4.  [Bug on the LCD module](#org84e1e03)
-3.  [Documentation](#org8772701)
-4.  [Project requirements](#org9620fe9)
-5.  [Deadline for the project](#orgc1cddee)
-
-
-
-<a id="org60e3a51"></a>
-
-# Introduction
-
-The goal of this project is to learn how to program a simple embedded
-system using a RTOS. In particular, we will make use of FreeRTOS:
-
-<https://www.freertos.org/>
-
-We will use a Raspberry Pico W, with a Grove Shield
-
-<https://wiki.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico/>
-
-We will program in C/C++ and configure and compile using CMake.
-
-
-<a id="org650b36f"></a>
-
-# Application
-
-
-<a id="org58c76a0"></a>
-
-## Sensors
-
--   Buzzer
--   Potentiometer
--   Button
--   Led
--   LCD
--   Light Sensor
--   Temperature Sensor (on board, integrated)
-
-
-<a id="org77906db"></a>
+# Example of using FreeRTOS on the Raspberry Pico 
 
 ## Requirements
 
-Initially the display shows the current mode on the first line. The
-possible working modes are:
+To run this example you will need: 
+- A Raspberry Pico W
+- A Grove Shield 
+  https://wiki.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico/
+- The following sensors/actuators
+  - light sensor 
+  - button
+  - led
+  - buzzer
+  - lcd 
 
--   HOME, TIME\_SET, ALARM\_SET, PLAY, ALARM
+Regarding the software you need:
+- The Pico SDK 
+  https://github.com/raspberrypi/pico-sdk
+- FreeRTOS Kernel
+  https://github.com/FreeRTOS/FreeRTOS-Kernel
+- A recente version of CMake
 
-The second line shows information relative to the current mode. 
+- The minicom program. In Ubuntu like systems, 
+```
+	sudo install minicom
+```	
+  
 
-In mode HOME, the display shows the time (hour/minutes/seconds) and
-the current temperature on the second line.  The time is updated every
-second.
+## Compiling
 
-In mode TIME\_SET, the time is obtained by the serial line (USB
-interface) and is synchronized with the actual time. When the board
-receives the time, it updates it and returns to mode HOME. 
+Before starting to compile, set up the correct path variables in the
+`CMakeLists.txt` 
 
--   **BONUS** (Optionally) you may show the time on the second line for 2
-    seconds before returning to HOME.
+	set(PICO_SDK_PATH <path to sdk>)
+	set(FREERTOS_KERNEL_PATH <path to freertos kernel>)
 
-In mode ALARM\_SET, it is possible to set an alarm. By using the knob
-(potentiometer) and the button, it is possible to set a timer after an
-interval between 5 and 60 seconds. Two seconds after setting the
-alarm, the system returns to HOME automatically.
+Then, configure the build system: 
 
-After the elapsed time, the systems goes into ALARM mode, and
+	mkdir build
+	cd build 
+	cmake ..
+	
+If everything goes ok, you can compile with 
 
--   a little music is played;
--   the display background light flashes between two colors;
--   the led flashes.
+	make 
+	
+This will compule the sdk, freertos and the example application.  To
+recompile, you only need to relaunch `make`, unless you change one of
+the configuration files (the `CMakeLists.txt` files).
 
-The ALARM mode is kept for a maximum of 15 seconds, then we return to
-HOME. If the button is pressed within the 15 seconds, the alarm is
-stopped (no music, no flashing lights) and after 2 second the system
-goes back to HOME.
+If everything compiles correctly, the resulting application will be
+found in file :
 
-In mode PLAY, the system plays a music (different from the alarm
-music), until the button is pressed, in which case we return to HOME
-and stop the music. If the alarm is fired in PLAY mode, the system
-stops playing the music and goes to the ALARM mode.
+	build/example_sc_minilib.uf2
 
-**BONUS**: Optionally, you can play different tunes, and let the user
-chose which tune to play.
+## The SC Mini Lib
 
-How to switch between modes? When in HOME, we use the knob
-(potentiometer) and the button:
+Currently there is no documentation for SC-MiniLib library, you need
+to look at the comments in the header files, for example the
 
--   with the potentiometer, we show on the display which mode we want to
-    go preceded by a "^" symbol.
--   when the user presses the button, it goes into that mode, shows it
-    on the screen without the "^" symbol, and accepts commands for it.
+	lib.sc_minilib.state_chart.hpp
+	
+Also read carefully the example code to understand how to use the library. 
 
-When we exit from any mode, we always go back to HOME.
+# Flash and running 
 
+Keep pressed the button on the Pico board while connecting it to the
+USB port of your PC; in this way, the board will be connected as a USB
+drive. Copy the application file `build/example_sc_minilib.uf2` to the
+USB drive. As soon as the copy is completed, the USB drive will
+disconnect and the board will reboot to launch your application.
 
-<a id="orgc81f6c9"></a>
+# Monitoring 
 
-## Serial line
+To see the output, you need the minicom program :
 
-To communicate via USB with the system, you may use minicom, or you
-may want to write a simple Python script using the serial library. An
-example will be provided to you on how to use the serial line input. 
-
-
-<a id="org84e1e03"></a>
-
-## Bug on the LCD module
-
-The LCD module has some little bug that has not yet been solved at the
-time of this writing, and the lcd\_print() function does not work
-properly. I think I will be able to solve it soon, however in the
-meantime you can send the output on the serial line with minicom.
-
-
-<a id="org8772701"></a>
-
-# Documentation
-
--   The Pico SDK library <https://www.raspberrypi.com/documentation/pico-sdk/>
--   Basics of RTOS       <https://www.freertos.org/Documentation/01-FreeRTOS-quick-start/01-Beginners-guide/01-RTOS-fundamentals>
--   FreeRTOS API:        <https://www.freertos.org/Documentation/02-Kernel/04-API-references/01-Task-creation/00-TaskHandle>
--   For the buzzer: how to use the PWM   <https://www.i-programmer.info/programming/148-hardware/14849-the-pico-in-c-basic-pwm.html>
--   The Pico Grove:      <https://wiki.seeedstudio.com/Grove-Starter-Kit-for-Raspberry-Pi-Pico/>
+	minicom -b 115200 -o -D /dev/ttyACM0
+	
+A convenient script is available in file `mcom.sh`.
 
 
-<a id="org9620fe9"></a>
-
-# Project requirements
-
-You need to provide
-
--   A UML statechart of the application, showing the main states and the
-    transitions events and variables;
-
--   A report (in pdf or markdown) explaining the statechart and your
-    implementation choices:
-    -   how many states and what they mean;
-    -   the main events and how they are generated;
-    -   the actions associated to the states or to the transitions;
-    -   how many periodic FreeRTOS tasks, and what they do;
-    -   how many interrupt routines and how they communicate with the rest
-        of the system
-    
-    -   the problems you encountered.
-
-
-<a id="orgc1cddee"></a>
-
-# Deadline for the project
-
--   You must provide the project on gitlab on **Monday 16 december**
-
--   We we will download your projects for evaluation on **Tuesday 17
-    december** in the morning.
-
+  
