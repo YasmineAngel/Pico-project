@@ -1,0 +1,110 @@
+statechart:
+  name: ClockAlarmSystem
+  description: Digital clock with selectable modes and a global ALARM override.
+
+  preamble: |
+    # Internal variables handled in the implementation
+    selected_mode = "HOME"
+    alarm_delay = 10
+
+
+  root state:
+    name: root
+    initial: Normal
+
+    states:
+      - name: Normal
+        initial: HOME
+        transitions:
+            # Global transition: Alarm overrides every mode
+          - event: alarm_triggered
+            target: ALARM
+        states:
+          - name: HOME
+            on entry: display_mode_home()
+            transitions:
+              - event: pot_move
+                target: MODE_SELECT
+              - event: tick
+                action: update_clock_display()
+                target: HOME
+
+          - name: MODE_SELECT
+            on entry: show_mode_selection()
+            transitions:
+              - event: pot_move
+                action: update_selected_mode()
+                target: MODE_SELECT
+              - event: timeout
+                target: HOME
+              - event: button_pressed
+                guard: selected_mode == "HOME"
+                target: HOME
+              - event: button_pressed
+                guard: selected_mode == "PLAY"
+                target: PLAY
+              - event: button_pressed
+                guard: selected_mode == "TIME_SET"
+                target: TIME_SET
+              - event: button_pressed
+                guard: selected_mode == "ALARM_SET"
+                target: ALARM_SET
+
+
+          - name: TIME_SET
+            on entry: request_time_sync()
+            transitions:
+              - event: timeout
+                target: HOME
+
+          - name: ALARM_SET
+            on entry: show_alarm_set_screen()
+            transitions:
+              - event: pot_move
+                action: update_alarm_delay()
+                target: ALARM_SET
+              - event: button_pressed
+                target: ALARM_CONFIRMED
+
+          - name: ALARM_CONFIRMED
+            on entry: set_timeout()
+            transitions:
+              - event: timeout
+                target: HOME
+
+          - name: PLAY
+            on entry: play_music()
+            transitions:
+              - event: button_pressed
+                action: stop_music()
+                target: HOME
+              - event: pot_move
+                action: change_song()
+                target: PLAY
+
+      - name: ALARM
+        initial: ALARM_RUNNING
+        transitions:
+          - event: alarm_stopped
+            target: Normal
+
+        states:
+          - name: ALARM_RUNNING
+            on entry: start_alarm()
+            transitions:
+              - event: button_pressed
+                action: set_timeout()
+                target: ALARM_STOPPING
+
+              - event: timeout
+                action: stop_alarm()
+                target: ALARM_STOPPED
+
+          - name: ALARM_STOPPING
+            on entry: show_alarm_stopped()
+            transitions:
+              - event: timeout
+                target: ALARM_STOPPED
+
+          - name: ALARM_STOPPED
+            on entry: send_event(alarm_stopped)
